@@ -6,7 +6,7 @@ from torch.autograd import Variable
 from PIL import Image
 import numpy as np
 import cv2
-from huggingface_hub import hf_hub_url, cached_download
+from huggingface_hub import hf_hub_download
 
 from CRAFT.craft import CRAFT, init_CRAFT_model
 from CRAFT.refinenet import RefineNet, init_refiner_model
@@ -38,6 +38,7 @@ def preprocess_image(image: np.ndarray, canvas_size: int, mag_ratio: bool):
     x = torch.from_numpy(x).permute(2, 0, 1)    # [h, w, c] to [c, h, w]
     x = Variable(x.unsqueeze(0))                # [c, h, w] to [b, c, h, w]
     return x, ratio_w, ratio_h
+
 
 
 class CRAFTModel:
@@ -72,8 +73,14 @@ class CRAFTModel:
             config = HF_MODELS[model_name]
             paths[model_name] = os.path.join(cache_dir, config['filename'])
             if not local_files_only:
-                config_file_url = hf_hub_url(repo_id=config['repo_id'], filename=config['filename'])
-                cached_download(config_file_url, cache_dir=cache_dir, force_filename=config['filename'])
+                # Download and cache the model using hf_hub_download
+                model_path = hf_hub_download(
+                    repo_id=config['repo_id'],
+                    filename=config['filename'],
+                    cache_dir=cache_dir
+                )
+                # Ensure the downloaded model path is correct
+                paths[model_name] = model_path
             
         self.net = init_CRAFT_model(paths['craft'], device, fp16=fp16)
         if self.use_refiner:
