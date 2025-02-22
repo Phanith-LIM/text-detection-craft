@@ -8,8 +8,8 @@ setup(
     py_modules=["CRAFT"],
     version="1.0",
     description="",
-    author="Igor Pavlov, Youngmin Baek, Bado Lee, Dongyoon Han, Sangdoo Yun, Hwalsuk Lee",
-    url='https://github.com/boomb0om/CRAFT-text-detection',
+    author="Phanith LIM",
+    url='https://github.com/Phanith-LIM/textdetection-craft.git',
     packages=find_packages(include=['CRAFT', 'CRAFT.*']),
     install_requires=[
         str(r)
