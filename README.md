@@ -16,11 +16,11 @@ Main features of this implementation:
 
 Recommended:
 ```bash
-pip install git+https://github.com/Phanith-LIM/craft-text-detection.git
+pip install git+https://github.com/Phanith-LIM/text-detection-craft.git
 ```
 or
 ```bash
-git clone https://github.com/Phanith-LIM/craft-text-detection.git
+git clone https://github.com/Phanith-LIM/text-detection-craft.git
 cd CRAFT-text-detection/
 pip install -r requirements.txt
 ```
